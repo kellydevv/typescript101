@@ -1,10 +1,8 @@
-// import original module declarations
-import 'styled-components';
 
-// and extend them!
+import 'styled-components';
 declare module 'styled-components' {
 export interface DefaultTheme {
-      textColor: string;
+      textColor:string;
       bgColor:string;
       btnColor:sring;
       };
