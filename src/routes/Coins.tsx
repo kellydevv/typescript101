@@ -75,6 +75,7 @@ function Coins() {
       <CoinsList>
         {coins.map((coin) => (
           <Coin key={coin.id}>
+            {/* a href를 하면 새로고침되기 때문에 link컴포넌트를 써야 한다! */}
             <Link to={`/${coin.id}`}>{coin.name} &rarr;</Link>
           </Coin>
         ))}
