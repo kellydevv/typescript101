@@ -1,6 +1,7 @@
 import { useParams, useLocation, Outlet } from "react-router";
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -181,6 +182,9 @@ function Coin() {
               <span>{priceInfo?.max_supply}</span>
             </OverviewItem>
           </Overview>
+
+          <Link to={`/${coinId}/chart`}>Chart</Link>
+          <Link to={`/${coinId}/price`}>Price</Link>
           <Outlet />
         </>
       )}
