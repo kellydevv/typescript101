@@ -1,7 +1,25 @@
+const BASE_URL = `https://api.coinpaprika.com/v1`;
 
-//api getch하고 json을 return하는 함수 만들기
-export async function FetchCoins() {
-  return fetch("https://api.coinpaprika.com/v1/coins").then((response) =>
+export function FetchCoins() {
+  return fetch(`${BASE_URL}/coins`).then((response) => response.json());
+}
+
+export function FetchCoinInfo(coinId: string) {
+  return fetch(`${BASE_URL}/coins/${coinId}`).then((response) =>
     response.json()
   );
+}
+
+export function FetchCoinTickers(coinId: string) {
+  return fetch(`${BASE_URL}/tickers/${coinId}`).then((response) =>
+    response.json()
+  );
+}
+
+export function FetchCoinHistory(coinId:string) {
+  const endDate = Math.floor(Date.now() / 1000);
+  const startDate = endDate - 60 * 60 * 24 * 7 * 2;
+  return fetch(`https://ohlcv-api.nomadcoders.workers.dev/?coinId=${coinId}`).then(
+    (response) => response.json()
+  ); 
 }
