@@ -32,16 +32,20 @@ function Chart({ coinId }: ChartProps) {
           type="line"
           series={[
             {
-              name: "sales",
-              data:[15,82,33,34],
+              name: "price",
+              data: data ? data?.map(price => parseFloat(price.close)) : [],
+              //no error in vscode, but console error, data.map is not a function
+              //data: data?.map ((price) => Number(price.close)) as number[],-->no error in vscode, but console error, data.map is not a function
+              // data: data?.map((price => price.close)) ?? [], -->vscode error
             },
           ]}
           options={{
-            theme: { mode: "dark" },
+            theme: { mode: "light" },
             chart: { height: 500, width: 500 },
           }}
         />
       )}
+      console.log(data);
     </div>
   );
 }
