@@ -174,7 +174,6 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : info?.name}
         </Title>
       </Header>
-      {loading ? <Loader>Loading...</Loader> : null}
       {loading ? (
         <Loader>Loading...</Loader>
       ) : (
@@ -189,8 +188,8 @@ function Coin() {
               <span>${info?.symbol}</span>
             </OverviewItem>
             <OverviewItem>
-              <span>Open Source:</span>
-              <span>{info?.open_source ? "Yes" : "No"}</span>
+              <span>Price:</span>
+              <span> {priceInfo?.quotes.USD.price.toFixed(3)}</span>
             </OverviewItem>
           </Overview>
           <Description>{info?.description}</Description>

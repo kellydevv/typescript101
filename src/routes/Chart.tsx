@@ -1,5 +1,5 @@
 import { useOutletContext, useParams } from "react-router-dom";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { FetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
 
@@ -23,6 +23,7 @@ function Chart({ coinId }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
     FetchCoinHistory(coinId)
   );
+  console.log(data ? data?.map((price) => parseFloat(price.close)) : []);
   return (
     <div>
       {isLoading ? (
@@ -33,15 +34,39 @@ function Chart({ coinId }: ChartProps) {
           series={[
             {
               name: "price",
-              data: data ? data?.map(price => parseFloat(price.close)) : [],
+              data: data ? data?.map((price) => parseFloat(price.close)) : [],
               //no error in vscode, but console error, data.map is not a function
               //data: data?.map ((price) => Number(price.close)) as number[],-->no error in vscode, but console error, data.map is not a function
               // data: data?.map((price => price.close)) ?? [], -->vscode error
             },
           ]}
           options={{
-            theme: { mode: "light" },
-            chart: { height: 500, width: 500 },
+            theme: { mode: "dark" },
+            chart: {
+              height: 300,
+              width: 500,
+              toolbar: { show: false },
+              background: "transparent",
+            },
+            grid: { show: false },
+            yaxis: { show: false },
+            xaxis: {
+              axisTicks: { show: false },
+              axisBorder: { show: false },
+              labels: { show: false },
+              type: "datetime",
+              categories:data ? data?.map((price) => parseFloat(price.time_close)) : [],
+            },
+            fill: {
+              type: "gradient",
+              gradient: { gradientToColors: ["#2ecc71"], stops: [0, 100] },
+            },
+            colors: ["#3498db"],
+            tooltip: { y: { formatter: (value) => `$ ${value.toFixed(2)}` } },
+            stroke: {
+              curve: "smooth",
+              width: 3,
+            },
           }}
         />
       )}
